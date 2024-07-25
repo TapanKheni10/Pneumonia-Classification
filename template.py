@@ -4,6 +4,8 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+project_name = "PneumoniaDetection"
+
 ## These is a list of the files that will be created
 list_of_files = [
     "app.py",
@@ -14,9 +16,11 @@ list_of_files = [
     "research",
     "research/data_link.txt",
     "pages",
-    "prediction_components",
-    "prediction_components/__init__.py",
-    "prediction_components/predict.py",
+    f"src/{project_name}",
+    f"src/{project_name}/__init__.py",
+    f"src/{project_name}/prediction_components",
+    f"src/{project_name}/prediction_components/__init__.py",
+    f"src/{project_name}/prediction_components/predict.py",
 ]
 
 for file_path in list_of_files:

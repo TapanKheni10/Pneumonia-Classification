@@ -1,3 +1,4 @@
+from PneumoniaDetection.prediction_component.predict import PredictionPipeline
 import streamlit as st
 from PIL import Image
 
@@ -19,6 +20,26 @@ def run():
     """)
 
     uploaded_file = st.file_uploader(label="**Upload the File**", type=['.jpeg', '.png', '.jpg'], 
-                                     help="upload the file of data over here for which you want to make prediction")
+                                     help="upload the image file over here for which you want to detect the pneumonia")
+    
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+
+        obj = PredictionPipeline(image)
+        prediction = obj.predict()
+
+        left_column, right_column = st.columns(2)
+        with left_column:
+            st.image(image, caption="Given X-Ray:", use_column_width=True)
+
+        with right_column:
+            if prediction >= 0.8:
+                image = Image.open('static/issue.jpeg')
+                st.image(image, use_column_width=True)
+                st.error("🔴 Pneumonia detected in the X-ray. Please consult a doctor. 👨🏻‍⚕️")
+            else:
+                image = Image.open('static/success.jpeg')
+                st.image(image, use_column_width=True)
+                st.success("🟢 No pneumonia detected in the X-ray. Stay healthy! 🌟")
     
     
